@@ -1,0 +1,36 @@
+.dashboard{
+    display: flex;
+    width:100%;
+    margin: 50px auto;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    width: 80%;
+    flex-wrap: nowrap;
+}
+@media only screen and (max-width: 900px) {
+    .dashboard{
+        flex-wrap: wrap;
+    }
+}
+.image img{
+    width:31rem;
+    border-radius: 30px;
+}
+
+.texte h1{
+    font-size: 2.5rem;
+    line-height: 3.5rem;
+}
+
+.texte p{
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+}
+
+.button-dashboard{
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+    margin-left:20px;
+}

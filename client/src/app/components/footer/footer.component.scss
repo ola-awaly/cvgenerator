@@ -1,0 +1,11 @@
+.footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-top-left-radius: 50% 100%;
+    border-bottom-right-radius: 20% 100%;
+    width: 100%;
+    background-color: #ccc;
+    height: 30px;
+    align-items: center;
+}

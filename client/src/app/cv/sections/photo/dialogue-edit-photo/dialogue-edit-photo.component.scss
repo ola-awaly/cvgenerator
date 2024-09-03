@@ -1,0 +1,30 @@
+.preview{
+    border: 1px solid grey;
+    width: 150px;
+    height:150px;
+}
+
+.form-content{
+    display: flex;
+    flex-direction: column;
+}
+.cropper{
+   
+    width:30rem;
+    height: 300px;
+    border: 1px solid grey;
+}
+.row,.buttons{
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+}
+.modify{
+    width: 10rem;
+    //margin:5px auto;
+}
+
+.actions{
+    clear:both;
+    float: right;
+}

@@ -1,0 +1,50 @@
+.spacer {
+    flex: 1 1 auto;
+  }
+
+  .bubble {
+   
+    border-bottom-left-radius: 50% 100%;
+    border-top-right-radius: 73% 50%;
+    width: 100%;
+    background-color: #ccc;
+    height: 150px;
+}
+
+
+
+@media only screen and (min-width: 900px) {
+  .bubble {
+    border-bottom-left-radius: 50% 100%;
+    border-top-right-radius: 73% 50%;
+    width: 100%;
+    background-color: #ccc;
+    height: 150px;
+}
+.logo{
+  width: 10em;
+  margin: auto 2em;
+}
+.hide-md{
+  display: none;
+}
+}
+
+
+@media only screen and (max-width: 900px) {
+  .bubble {
+   
+    border-bottom-left-radius: 50% 100%;
+    border-top-right-radius: 73% 50%;
+    width: 100%;
+    background-color: #ccc;
+    height: 150px;
+}
+.logo{
+  width: 10em;
+  margin: auto auto;
+}
+.hide-xs{
+  display: none;
+}
+}

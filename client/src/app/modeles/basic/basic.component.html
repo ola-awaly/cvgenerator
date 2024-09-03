@@ -1,0 +1,241 @@
+
+<div class="wrapper">
+    <div class="wrapper-template">
+        <div class="label-template" *ngIf="cv"> <button class="edit-label" mat-icon-button (click)="openLabelRenameDialog()"> <mat-icon>edit</mat-icon></button>
+            [{{cv.label}}]</div>
+        <div class="basic" id="htmltable" *ngIf="cv && sectionsDroit && sectionsGauche"   #htmltable>
+            
+            <div class="side-droit">
+                <div class="photo">
+                    <div class="overlay"></div>
+                    <button class="edit" mat-icon-button (click)="openPhotoDialog()"> <mat-icon>edit</mat-icon></button>
+                    <img src="{{cv.photo?cv.photo : 'assets/photos/NoImage.jpeg'}}" alt="" >
+                    <!-- <img src="assets/photos/NoImage.jpeg" alt="" > -->
+                </div>
+            
+                    <div  cdkDropList
+                    #sidedroit="cdkDropList"
+                    [cdkDropListData]="sectionsDroit.rows"
+                    [cdkDropListConnectedTo]="[content]"
+                    
+                    (cdkDropListDropped)="drop($event)" 
+                    >
+                
+                    <section *ngFor="let item of sectionsDroit.rows" cdkDrag>
+                    
+                        <div class="overlay"></div>
+                        <button class="edit" mat-icon-button (click)="openSection(item.id,item.type)"> <mat-icon>edit</mat-icon></button>
+                    
+                        <span class="section-title"> {{item.intitule}}</span>
+                        <div [innerHTML]="item.description" *ngIf="item.description"></div>
+                        <ng-container *ngTemplateOutlet="experiences;context:{item:item}" ></ng-container>
+                        <ng-container *ngTemplateOutlet="formations;context:{item:item}" ></ng-container>
+                        <ng-container *ngTemplateOutlet="liens;context:{item:item}" ></ng-container>
+                        <ng-container *ngTemplateOutlet="langues;context:{item:item}" ></ng-container>
+                    
+                    </section>
+                    </div>
+            
+            </div>
+            <div class="content" >
+                <div class="cv-header" *ngIf="cv">
+                    <div class="overlay"></div>
+                    <button class="edit" mat-icon-button (click)="openProfileDialog()"> <mat-icon>edit</mat-icon></button>
+                
+                    <div class="title">
+                        {{cv.prenom}} {{cv.nom}}
+                    </div>
+                    <div class="poste">
+                        {{cv.intituleDePoste}}
+                    </div>
+                    <div class="tel">
+                        <mat-icon>phone</mat-icon>
+
+                        {{cv.mobile}}</div>
+                    <div class="email">
+                        <mat-icon>email</mat-icon>
+                    {{cv.email}}</div>
+                    <div class="adresse">
+                        <mat-icon>location_on</mat-icon>
+                        {{cv.adresse}} {{cv.cp}} {{cv.ville}} </div>
+                </div>   
+            
+                <div 
+                    cdkDropList
+                    #content="cdkDropList"
+                    [cdkDropListData]="sectionsGauche.rows"
+                    [cdkDropListConnectedTo]="[sidedroit]"
+                    
+                    (cdkDropListDropped)="drop($event)" 
+                    >
+                <section *ngFor="let item of sectionsGauche.rows" cdkDrag>
+                    
+                    <div class="overlay"></div>
+                    <button class="edit" mat-icon-button (click)="openSection(item.id,item.type)"> <mat-icon>edit</mat-icon></button>
+                
+                    <span class="section-title"> {{item.intitule}}</span>
+                    <div [innerHTML]="item.description"></div>
+                    <ng-container *ngTemplateOutlet="experiences;context:{item:item}" ></ng-container>
+                    <ng-container *ngTemplateOutlet="formations;context:{item:item}" ></ng-container>
+                    <ng-container *ngTemplateOutlet="liens;context:{item:item}" ></ng-container>
+                    <ng-container *ngTemplateOutlet="langues;context:{item:item}" ></ng-container>
+                    
+
+                </section>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+
+    <div class="config-wrapper">
+    <div class="config">
+        <mat-accordion>
+            <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                Color
+                </mat-panel-title>
+            
+            </mat-expansion-panel-header>
+            <div class="color-space">
+            <ng-container  *ngFor="let color of colors" >
+                    <button mat-mini-fab [ngStyle]="{'background-color': color}"  class="color-button" (click)="customTemplateConfig.bgcolor=color"></button>
+            </ng-container>
+            </div>
+           
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Mise en forme 
+                </mat-panel-title>
+                
+                </mat-expansion-panel-header>
+                    <section class="panel-content">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Police:</mat-label>
+                            <mat-select [(value)]="customTemplateConfig.police">
+                                <mat-option value="'Arial', sans-serif;">Arial</mat-option>
+                                <mat-option value="'Courier New', sans-serif;">Courier New</mat-option>
+                                <mat-option value="'Georgia', sans-serif;">Georgia</mat-option>
+                         
+                              <mat-option value="'Nuosu SIL', serif;">Nuosu SIL</mat-option>
+                              <mat-option value="'Open Sans', sans-serif;">Open Sans</mat-option>
+                              <mat-option value="'Roboto', sans-serif;">Roboto</mat-option>
+                              <mat-option value="'Roboto Condensed', sans-serif;">Roboto Condensed</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <span class="config-title">Taille du titre: <span class="config-value">{{customTemplateConfig.titleFontSize}}PT</span></span>
+                          <mat-slider step="1" tickInterval="1" min="10" max="50" [(ngModel)]="customTemplateConfig.titleFontSize"></mat-slider>
+                          <span class="config-title">Taille du sous-titre: <span class="config-value">{{customTemplateConfig.posteFontSize}}PT</span></span>
+                          <mat-slider step="1" tickInterval="1" min="10" max="30" [(ngModel)]="customTemplateConfig.posteFontSize"></mat-slider>
+                         
+                        <span class="config-title">Taille des titres: <span class="config-value">{{customTemplateConfig.sectionTitleFontSize}}PT</span></span>
+                         <mat-slider step="1" tickInterval="1" min="10" max="30" [(ngModel)]="customTemplateConfig.sectionTitleFontSize"></mat-slider>
+                        
+                         <span class="config-title">Taille de police: <span class="config-value">{{customTemplateConfig.taillePolice}}PT</span></span>
+                         <mat-slider step="1" tickInterval="1" min="10" max="30" [(ngModel)]="customTemplateConfig.taillePolice"></mat-slider>
+                          
+                         <span class="config-title">Espacement entre les sections: <span class="config-value">{{customTemplateConfig.espaceSections}}PT</span></span>
+                         <mat-slider step="5" tickInterval="5" min="1" max="30" [(ngModel)]="customTemplateConfig.espaceSections"></mat-slider>
+                          
+                         <span class="config-title">Expacement entre les paragraphes: <span class="config-value">{{customTemplateConfig.espaceParagraphes}}PT</span></span>
+                         <mat-slider step="5" tickInterval="5" min="1" max="30" [(ngModel)]="customTemplateConfig.espaceParagraphes"></mat-slider>
+    
+                    </section>
+                    
+                
+               
+            </mat-expansion-panel>
+        
+            <mat-expansion-panel >
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                    Actions
+                    </mat-panel-title>
+                
+                </mat-expansion-panel-header>
+                <div class="action-buttons">
+                    <button mat-button routerLink="/cv/edit/{{cv.id}}" *ngIf="cv.id"><mat-icon>edit</mat-icon>Modifier ce CV</button>
+                    <button mat-button  (click)="exportHtmlToPDF(1)" [disabled]="cv.status != '2'"><mat-icon>picture_as_pdf</mat-icon>Download PDF</button>
+                    <button mat-button  (click)="exportHtmlToPDF(2)" [disabled]="cv.status != '2'"><mat-icon>print</mat-icon>Print</button>
+                    <button mat-button  (click)="sendByMail()" [disabled]="cv.status != '2'"><mat-icon>email</mat-icon>Envoyer par email</button>
+                   
+                </div>
+               
+            </mat-expansion-panel>
+        </mat-accordion>
+        
+    </div>
+     <button mat-button  class="saveButton" (click)="save()">Enregistrer</button> 
+    </div>
+</div>
+<ng-template #experiences let-item="item">
+    <div *ngIf="item.ExperienceProfessionnelles" class="ExpDiv">
+        <div *ngFor="let exp of item.ExperienceProfessionnelles" class="paragraphe">
+            
+            <div class="date"> 
+                {{exp.dateDeDebutMois}}<span *ngIf="exp.dateDeDebutMois">/</span>{{exp.dateDeDebutAnnee}} <span *ngIf="!exp.enCours">- {{exp.dateDeFinMois}}<span *ngIf="exp.dateDeFinMois">/</span>{{exp.dateDeFinAnnee}}</span><span *ngIf="exp.enCours"> - En cours</span>
+            </div>
+            <div >
+            <span class="employeur">{{exp.employeur}}</span>  <span *ngIf="exp.ville"> | </span> {{exp.ville}} <span *ngIf="exp.typeDeContrat"> | </span> {{exp.typeDeContrat}}
+        
+            </div>
+            <div class="poste">
+                {{exp.intituleDePoste}}
+            </div>
+                        
+            <div [innerHTML]="exp.description" class="Desc"></div>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #formations let-item="item">
+    <div *ngIf="item.Formations" class="ExpDiv">
+        <div *ngFor="let formation of item.Formations" class="paragraphe">
+            
+            <div class="date"> 
+                {{formation.dateDeDebutMois}}<span *ngIf="formation.dateDeDebutMois">/</span>{{formation.dateDeDebutAnnee}} <span *ngIf="!formation.enCours"></span>- {{formation.dateDeFinMois}}<span *ngIf="formation.dateDeFinMois">/</span>{{formation.dateDeFinAnnee}}<span *ngIf="formation.enCours"> - En cours</span>
+            </div>
+            <div >
+            <span class="employeur">{{formation.nomEtablissement}}</span>  <span *ngIf="formation.ville"> | </span> {{formation.ville}} 
+        
+            </div>
+            <div class="poste">
+                {{formation.diplome}}<span *ngIf="formation.domaineEtude"> : </span>{{formation.domaineEtude}} <span *ngIf="formation.mention"> - </span>{{formation.mention}}
+            </div>
+                        
+            <div [innerHTML]="formation.description" class="Desc"></div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #liens let-item="item">
+    <div *ngIf="item.Liens" >
+        <ng-container  *ngFor="let lien of item.Liens" >
+            
+           <div class="lien paragraphe">
+               <a href="lien.lien"><mat-icon>insert_link</mat-icon>{{lien.lien}}</a>
+               <div [innerHTML]="lien.commentaire" class="commentaire"></div>
+            </div>
+        </ng-container>
+    </div>
+</ng-template>
+
+<ng-template #langues let-item="item">
+    <div *ngIf="item.Langues" class="langues">
+        <ng-container  *ngFor="let langue of item.Langues" >
+            
+           <div class="paragraphe">
+              <span>{{langue.langue}}</span> 
+             
+ <mat-progress-bar mode="determinate" [value]="langue.niveau | niveau" class="green-progress"></mat-progress-bar>
+              <span>{{langue.niveau}}</span>
+              <span *ngIf="langue.infoSup"> | </span>
+              <span>{{langue.infoSup}}</span>
+            </div>
+        </ng-container>
+    </div>
+</ng-template>

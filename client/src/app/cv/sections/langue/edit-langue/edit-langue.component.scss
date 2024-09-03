@@ -1,0 +1,70 @@
+
+.fieldset{
+    margin-top:20px;
+}
+.invalid{
+    border: 2px solid red;
+}
+.fieldsetContent{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    position: relative;
+    margin-top:20px
+}
+
+.dateFieldSet{
+    display: flex;
+    gap: 10px;
+    width: 15rem;
+    border-radius:30px
+}
+.description{
+    width: 50rem;
+
+}
+.encours{
+    float:right
+}
+.unquart{
+    width: 15rem
+}
+
+
+.actions, .add{
+    clear:both;
+    float: right;
+    margin-top: 20px;
+}
+
+.test{
+    border: 1px solid red;
+}
+
+.cdk-drag-placeholder {
+    opacity: 0;
+  }
+  
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .numBadge{
+      margin:20px
+  }
+
+  .handleDrag{
+      float:right
+  }
+  mat-panel-description{
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  .libele{
+      min-width:75px
+  }
+
+  form{
+    width:70%;
+    margin: 0 auto;
+  }

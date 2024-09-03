@@ -1,0 +1,39 @@
+
+.actions{
+    clear:both;
+    float: right;
+}
+
+@media only screen and (min-width: 900px) {
+  
+    .hide-md{
+      display: none;
+    }
+    .step{
+        margin: 100px auto;
+        width: 80%;
+    }
+    .img{
+        width:200px
+    }
+  }
+    
+    
+    @media only screen and (max-width: 900px) {
+    
+        .hide-xs{
+        display: none;
+        }
+        .step{
+            margin: 100px auto;
+            width: 80%;
+        }
+        .img{
+            width:50px
+        }
+    }
+
+    form{
+        width:60%;
+        margin:0 auto;
+    }

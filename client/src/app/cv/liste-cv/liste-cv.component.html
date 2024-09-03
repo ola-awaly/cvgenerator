@@ -1,0 +1,38 @@
+
+  <mat-card *ngIf="mesCv" class="mes-cv">
+    <mat-card-title>Mes CVs</mat-card-title>
+    <mat-list role="list" *ngIf="mesCv.rows.length;else noitems">
+      <ng-container *ngFor="let cv of mesCv.rows">
+        <mat-list-item role="listitem"  [appCvItemList]="cv.status">
+          
+            {{cv.label}}{{cv.status == 2?' (Finalisé)':' (Créé)'}} 
+            <span class="spacer"></span>
+            <button mat-button [routerLink]="['/cv/edit/',cv.id]"  class="hide-xs"><mat-icon>edit</mat-icon>Modifier</button>
+            <button mat-button class="hide-xs" (click)="downloadPdf(cv.pdf,cv.label)" [disabled]="cv.status != '2'"><mat-icon>download</mat-icon>Télécharger</button>
+            <button mat-button (click)="deleteCv(cv.id)" class="hide-xs"><mat-icon>delete</mat-icon>Supprimer</button>
+            <button mat-button [matMenuTriggerFor]="moreMenu" >  
+                <mat-icon>more_horiz</mat-icon>
+            </button>
+        
+            <mat-menu #moreMenu="matMenu" xPosition="after">
+              <button mat-button [routerLink]="['/cv/edit/',cv.id]"  class="hide-md"><mat-icon>edit</mat-icon>Modifier</button>
+              <button mat-button class="hide-md" (click)="downloadPdf(cv.pdf,cv.label)" [disabled]="cv.status != '2'"><mat-icon>download</mat-icon>Télécharger</button>
+              <button mat-button (click)="deleteCv(cv.id)" class="hide-md"><mat-icon>delete</mat-icon>Supprimer</button> 
+              <button  mat-menu-item (click)="openPdf(cv.pdf)" [disabled]="cv.status != '2'"><mat-icon>print</mat-icon>Imprimer</button>
+              <button (click)="duplicate(cv.id)" mat-menu-item><mat-icon>content_copy</mat-icon>Dupliquer</button>
+              <button   mat-menu-item (click)="openLabelRenameDialog(cv.id)"><mat-icon>drive_file_rename_outline</mat-icon>Renommer</button>
+              <button   mat-menu-item (click)="sendByMail(cv.id)" [disabled]="cv.status != '2'"><mat-icon>email</mat-icon>Email</button>
+            </mat-menu>
+          
+        </mat-list-item>
+      </ng-container>
+      </mat-list>
+     
+  </mat-card>
+
+  <ng-template #noitems >
+    <div class="noitems">
+        <mat-icon>circle_notifications</mat-icon>
+         <div> Pas de CV pour le moment, créer un nouveau.</div> 
+    </div>
+  </ng-template>

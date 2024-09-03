@@ -1,0 +1,21 @@
+<form [formGroup]="labelFormGroup" (ngSubmit)="submitLabel()" *ngIf="labelFormGroup">
+   
+    <h1 mat-dialog-title>Renommer votre CV</h1>
+    <div mat-dialog-content>
+           
+            <div class="form-content">
+            <mat-form-field appearance="outline">
+              <mat-label>Label</mat-label>
+              <input matInput formControlName="label" placeholder="Label" required>
+              <mat-error *ngIf="labelFormGroup.get('label').invalid">Label not valid</mat-error>
+            </mat-form-field>
+      
+            </div>
+          
+          
+    </div>
+    <div class="actions" mat-dialog-actions>
+        <button mat-button   (click)="cancel()" type="button">Cancel</button>
+        <button mat-button [disabled]="labelFormGroup.invalid">Ok</button>
+    </div>
+    </form>

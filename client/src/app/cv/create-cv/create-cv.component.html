@@ -1,0 +1,81 @@
+
+  <!-- orientation="horizontal" -->
+  <mat-stepper  #stepper linear="true" linear [orientation]="orientation">
+    <mat-step [stepControl]="modeleFormGroup" state="phone" completed="false" >
+        <ng-template matStepLabel>Modèle</ng-template>
+        <ng-template matStepContent>
+            
+              <app-select-modele  *ngIf="CvId" (formState)="setState($event)" ></app-select-modele>
+        </ng-template>
+    </mat-step>
+    <mat-step [stepControl]="profileFormGroup" state="chat" completed="false" class="hide">
+        <ng-template matStepLabel>Profil</ng-template>
+        <ng-template matStepContent>
+             <app-edit-profile *ngIf="CvId" (formState)="setState($event)"></app-edit-profile>
+        </ng-template>
+    </mat-step>
+     <mat-step [stepControl]="photoFormGroup" completed="false">
+        <ng-template matStepLabel>Photo</ng-template>
+       
+             <app-edit-photo *ngIf="CvId" (formState)="setState($event)"></app-edit-photo>
+       
+    </mat-step>
+    <mat-step [stepControl]="parcoursFormGroup" completed="false" class="hide">
+        <ng-template matStepLabel>Parcours professionnel</ng-template>
+        <ng-template matStepContent>
+            
+            <app-edit-experience *ngIf="CvId" (formState)="setState($event)"></app-edit-experience>
+            
+         </ng-template>
+    </mat-step>
+    <mat-step [stepControl]="formationFormGroup" completed="false" class="hide">
+        <ng-template matStepLabel>Formation</ng-template>
+        <ng-template matStepContent>
+            <app-edit-formation *ngIf="CvId" (formState)="setState($event)"></app-edit-formation>
+        </ng-template>
+      </mat-step>
+       <mat-step [stepControl]="sectionFormGroup" completed="false" class="hide">
+       
+          <ng-template matStepLabel>Compétences</ng-template>
+          <ng-template matStepContent>
+            <app-edit-section type="competence" *ngIf="CvId" (formState)="setState($event)"></app-edit-section>
+        </ng-template>
+      </mat-step>
+      <mat-step [stepControl]="langueFormGroup" completed="false" class="hide">
+       
+        <ng-template matStepLabel>Langues</ng-template>
+        <ng-template matStepContent>
+            <app-edit-langue (formState)="setState($event)"></app-edit-langue>
+        </ng-template>
+       
+        </mat-step>
+        <mat-step completed="false" class="hide">
+       
+            <ng-template matStepLabel>Liens</ng-template>
+            <ng-template matStepContent>
+                <app-edit-lien (formState)="setState($event)"></app-edit-lien>
+            </ng-template>
+           
+        </mat-step>
+
+  
+    <mat-step class="hide">
+      <ng-template matStepLabel>Fini</ng-template>
+      <button mat-button (click)="finaliser()">Finaliser le CV</button>
+      <div>
+       
+       
+      </div>
+    </mat-step> 
+
+
+  <!-- Icon overrides. -->
+ 
+    <ng-template matStepperIcon="edit">
+        <mat-icon>done_outline</mat-icon>
+      </ng-template>
+      <ng-template matStepperIcon="chat">
+        <mat-icon>forum</mat-icon>
+      </ng-template>
+    
+  </mat-stepper>

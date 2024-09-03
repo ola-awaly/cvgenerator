@@ -1,0 +1,30 @@
+<form [formGroup]="sectionFormGroup"  (ngSubmit)="submitSection()" *ngIf="sectionFormGroup">
+     
+    <h1 mat-dialog-title>Modifiez vos compétences</h1>
+    <div mat-dialog-content>
+        <h2>Parlez-nous de vos compétences</h2>
+        <p> Ecrivez vos compétences sous forme de liste.</p>
+            
+          
+        <!-- <fieldset    [ngClass]="{'fieldset':true,'invalid':getExperiences().at(i).touched && getExperiences().at(i).invalid}">
+         <legend>Experiences:</legend> -->
+        
+             <!-- <mat-form-field class="unquart" appearance="outline" >
+                 <mat-label>Intitulé de Section</mat-label>
+                 <input type="text" matInput formControlName="intitule" 
+                        >
+              </mat-form-field> -->
+             <!-- <mat-form-field class="description" appearance="outline" >
+                 <mat-label>Description</mat-label>
+                  <textarea  matInput formControlName="description"></textarea> 
+                 
+              </mat-form-field> -->
+              
+              <ckeditor [editor]="Editor" formControlName="description" [config]="config"></ckeditor>
+    
+    </div>
+    <div class="actions" mat-dialog-actions>
+        <button mat-button   (click)="cancel()" type="button">Cancel</button>
+        <button mat-button [disabled]="sectionFormGroup.invalid"  >Ok</button>
+    </div>
+    </form>

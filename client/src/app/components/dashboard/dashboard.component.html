@@ -1,0 +1,26 @@
+<!-- <mat-card class="dashboard">
+
+    <mat-card-title>Générateur de CV simple, facile et rapide</mat-card-title>
+    <mat-card-content class="response-card-content">
+        Démarquez-vous avec nos modèles professionnels et créez un CV efficace.
+    </mat-card-content>
+    <mat-card-actions>
+        <button type="button" routerLink="/cv/create/" mat-button>Créer un nouveau CV</button>
+      </mat-card-actions>
+</mat-card> -->
+
+<div class="dashboard">
+    <div class="image">
+        <img src="assets/img/dashboard-image.webp"/>
+
+    </div>
+    <div class="texte">
+        <h1>Générateur de CV simple, facile et rapide</h1>
+        <p *ngIf="logged">Bonjour {{loggedUserObj.prenom}} {{loggedUserObj.nom}},</p>
+        <p>Démarquez-vous avec nos modèles professionnels et créez un CV efficace.<br>
+        Commencez par </p>
+        <button mat-raised-button routerLink="/cvs/create" color="primary" class="button-dashboard" *ngIf="logged">Créer un nouveau CV</button>
+        <button mat-raised-button routerLink="/users/register" color="primary" class="button-dashboard" *ngIf="!logged">Créer un compte</button>
+    
+    </div>
+</div>

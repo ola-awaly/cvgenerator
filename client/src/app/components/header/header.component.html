@@ -1,0 +1,40 @@
+<mat-toolbar *ngIf="!logged" class="bubble">
+  <button mat-button [matMenuTriggerFor]="mobileMenu" class="hide-md">  
+    <mat-icon>menu</mat-icon>
+  </button>
+    <img src="/assets/img/cvgenerator.png" alt="" class="logo">
+    <!-- <span>CV Generator</span>-->
+    <button mat-button [routerLink]="'/dashboard/'" class="hide-xs"><mat-icon>home</mat-icon>Accueil</button>
+
+    <button mat-button routerLink="/users/login" class="hide-xs"><mat-icon>login</mat-icon>Identifiez-vous</button>
+    <button mat-button routerLink="/users/register" class="hide-xs"><mat-icon>app_registration</mat-icon>Créez un compte</button>
+    <mat-menu #mobileMenu="matMenu" xPosition="after">
+      <button mat-button [routerLink]="'/dashboard/'" ><mat-icon>home</mat-icon>Accueil</button>
+
+      <button mat-button routerLink="/users/login" ><mat-icon>login</mat-icon>Identifiez-vous</button>
+    <button mat-button routerLink="/users/register" ><mat-icon>app_registration</mat-icon>Créez un compte</button>
+   
+  </mat-menu>
+  </mat-toolbar>
+
+<mat-toolbar *ngIf="logged" class="bubble">
+    <img src="/assets/img/cvgenerator.png" alt="" class="logo">
+    <button mat-button [routerLink]="'/dashboard/'" class="hide-xs"><mat-icon>home</mat-icon>Accueil</button>
+
+    <button mat-button [routerLink]="'/cv/mescv/'+loggedUserObj.id" class="hide-xs"><mat-icon>list</mat-icon>Mes CV</button>
+    <button mat-button routerLink="/cv/create" class="hide-xs"><mat-icon>construction</mat-icon> Créer un nouveau CV</button>
+    <span class="spacer"></span>
+   
+    <button mat-button [matMenuTriggerFor]="userMenu" *ngIf="loggedUserObj">  
+        <mat-icon>person</mat-icon>{{loggedUserObj.prenom}}
+    </button>
+
+    <mat-menu #userMenu="matMenu" xPosition="after">
+        <button routerLink="/users/mes-parametres/{{loggedUserObj.id}}" mat-menu-item><mat-icon>settings</mat-icon>Mes paramètres</button>
+        <button routerLink="/users/modifier-mot-de-passe/{{loggedUserObj.id}}" mat-menu-item><mat-icon>password</mat-icon>Modifier mon mot de passe</button>
+      
+        <button routerLink="/cv/mescv/{{loggedUserObj.id}}" mat-menu-item><mat-icon>list</mat-icon>Mes CVs</button>
+        <button (click)="logout()"  mat-menu-item><mat-icon>logout</mat-icon>Se déconnecter</button>
+    </mat-menu>
+  </mat-toolbar>
+  

@@ -1,0 +1,39 @@
+<form [formGroup]="sendMailFormGroup" (ngSubmit)="submitForm()" *ngIf="sendMailFormGroup">
+   
+    <h1 mat-dialog-title>Envoyer votre CV par email</h1>
+    <div mat-dialog-content>
+           
+            <div class="form-content">
+            <mat-form-field appearance="outline">
+              <mat-label>To Email:</mat-label>
+              <input matInput formControlName="toEmail" placeholder="Email" required>
+              <mat-error *ngIf="sendMailFormGroup.get('toEmail').invalid">Email non valide</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Sujet:</mat-label>
+                <input matInput formControlName="subject" placeholder="Sujet" required>
+                <mat-error *ngIf="sendMailFormGroup.get('subject').invalid">Sujet recquis</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Message:</mat-label>
+                <textarea matInput formControlName="message" placeholder="Message" required></textarea>
+                <mat-error *ngIf="sendMailFormGroup.get('message').invalid">Message recquis</mat-error>
+              </mat-form-field>
+              <div class="spinner-wrapper" *ngIf="showSpinner || showSent">
+                <div class="spinner" >
+
+                    <mat-spinner *ngIf="showSpinner"></mat-spinner>
+                    <span class="email-sent" *ngIf="showSent">{{sentMessage}}</span>
+                </div>
+            </div>
+            </div>
+           
+          
+    </div>
+    <div class="actions" mat-dialog-actions>
+        <button mat-button   (click)="cancel()" type="button">Cancel</button>
+        <button mat-button [disabled]="sendMailFormGroup.invalid">Send</button>
+    </div>
+    </form>
+
+    

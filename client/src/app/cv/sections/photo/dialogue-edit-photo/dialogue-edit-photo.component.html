@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>Edit your photo</h1>
+<div mat-dialog-content>
+    <form [formGroup]="photoFormGroup"  *ngIf="photoFormGroup">
+   
+       
+       <div class="form-content">
+          
+          <div class="row">
+         
+         <img [src]="cropImgPreview"  class="preview" *ngIf="cropImgPreview"/>
+         <div>
+            <image-cropper class="cropper" *ngIf="showCropper"
+            [imageChangedEvent]="imgChangeEvt" 
+            [maintainAspectRatio]="true" 
+            [aspectRatio]="4 / 4"
+            [resizeToWidth]="256" 
+            format="png"
+            (imageCropped)="cropImg($event)" 
+            (imageLoaded)="imgLoad()"
+            (cropperReady)="initCropper()" 
+            (loadImageFailed)="imgFailed()">
+            
+        </image-cropper>
+        <mat-error *ngIf="imageError">Doit être une image</mat-error>
+         </div> 
+           </div>
+           <div class="buttons">
+               <button mat-button class="modify">  <label for="photo" >Modifiez la photo</label></button>
+      
+            <input  id="photo" formControlName="image" placeholder="photo" type="file" required (change)="onFileChange($event)" style="display: none;">
+           <button mat-button (click)="envoyerImg()" *ngIf="showCropper && !imageError">Valider</button>
+      
+           </div>
+           
+       </div>
+         
+   
+       
+       
+     </form>
+</div>
+<div class="actions" mat-dialog-actions>
+    <button mat-button [disabled]="validated"  (click)="cancel()" type="button">Cancel</button>
+    <button mat-button [disabled]="!validated"  (click)="ok()">Ok</button>
+</div>

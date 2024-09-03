@@ -1,0 +1,57 @@
+
+form{
+    margin:10px;
+    padding:10px 0;
+    
+}
+
+mat-form-field{
+    width:100%;
+    margin-top:5px
+}
+mat-card-actions{
+    display: flex;
+    justify-content: flex-end;
+}
+
+@media only screen and (min-width: 900px) {
+    .registration-card-content{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap:20px;
+        align-items: baseline;
+    }
+  .hide-md{
+    display: none;
+  }
+  .register{
+    margin: 100px auto;
+    width: 50em;
+    
+
+}
+  }
+  
+  
+  @media only screen and (max-width: 900px) {
+    .registration-card-content{
+        display: grid;
+        grid-template-columns: 1fr ;
+        gap:20px;
+        align-items: baseline;
+    }
+  .hide-xs{
+    display: none;
+  }
+  .register{
+    margin: 100px auto;
+    width: 80%;
+    
+
+}
+  }
+
+  .cp-ville{
+      display: flex;
+      gap:10px
+  }

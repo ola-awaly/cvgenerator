@@ -1,0 +1,42 @@
+
+<ng-template matStepLabel>Photo</ng-template>
+<form [formGroup]="photoFormGroup"  *ngIf="photoFormGroup">
+   
+     <h2>Ajoutez ou modifiez votre photo</h2>
+    <div class="form-content">
+       
+       <div class="row">
+                <div>
+                  <img [src]="cropImgPreview"  class="preview" *ngIf="cropImgPreview"/>
+                  <mat-error *ngIf="imageError">Doit être une image</mat-error>
+                 </div>
+                  <image-cropper class="cropper" *ngIf="showCropper"
+                  [imageChangedEvent]="imgChangeEvt" 
+                  [maintainAspectRatio]="true" 
+                  [aspectRatio]="4 / 4"
+                  [resizeToWidth]="256" 
+                  format="png"
+                  (imageCropped)="cropImg($event)" 
+                  (imageLoaded)="imgLoad()"
+                  (cropperReady)="initCropper()" 
+                  (loadImageFailed)="imgFailed()">
+                  
+                </image-cropper>
+                
+        </div>
+        <div class="buttons">
+            <button mat-button class="modify">  <label for="photo">Modifiez la photo</label></button>
+   
+         <input  id="photo" formControlName="image" placeholder="photo" type="file" required (change)="onFileChange($event)" style="display: none;">
+        <button mat-button (click)="envoyerImg()" *ngIf="showCropper && !imageError" color="primary">Valider</button>
+   
+        </div>
+        
+    </div>
+      
+
+    
+    <div class="actions">
+      <button mat-button  matStepperNext (click)="submit()" color="primary">Enregistrez et continuez</button>
+    </div>
+  </form>

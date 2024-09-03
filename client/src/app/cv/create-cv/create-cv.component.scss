@@ -1,0 +1,46 @@
+.mat-stepper-horizontal {
+    margin-top: 8px;
+  }
+  
+  .mat-form-field {
+    margin-top: 16px;
+  }
+
+  .form-content{
+      display: flex;
+      gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  mat-form-field{
+      width: 250px
+  }
+
+  .hide{
+    display: none;
+  }
+
+
+@media only screen and (min-width: 900px) {
+  
+  .hide-md{
+    display: none;
+  }
+  .step{
+      margin: 100px auto;
+      width: 80%;
+  }
+  
+}
+  
+  
+  @media only screen and (max-width: 900px) {
+  
+      .hide-xs{
+      display: none;
+      }
+      .step{
+          margin: 100px auto;
+          width: 80%;
+      }
+  }

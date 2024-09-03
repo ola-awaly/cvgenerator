@@ -1,0 +1,85 @@
+
+<mat-card class="register" *ngIf="!isSaved;else saved">
+    <mat-card-title>Mes paramètres</mat-card-title>
+    <form action="" [formGroup]="mesParametresFormGroup" (ngSubmit)="save()" *ngIf="mesParametresFormGroup">
+      
+    <mat-card-content class="registration-card-content">
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="pat@example.com" formControlName="email" required>
+                <mat-error *ngIf="mesParametresFormGroup.get('email').errors && mesParametresFormGroup.get('email').hasError('required')">Email recquis</mat-error>
+                <mat-error *ngIf="mesParametresFormGroup.get('email').errors && mesParametresFormGroup.get('email').hasError('email')">Email pas valid</mat-error>
+                <mat-error *ngIf="mesParametresFormGroup.get('email').errors && mesParametresFormGroup.get('email').hasError('emailexist')">Email existe déjà</mat-error>
+         
+            </mat-form-field>
+          
+            <mat-form-field appearance="outline">
+                <mat-label>Prénom</mat-label>
+                <input matInput formControlName="prenom" placeholder="Prenom" required>
+                <mat-error *ngIf="mesParametresFormGroup.get('prenom').errors && mesParametresFormGroup.get('prenom').hasError('required')">Prénom recquis</mat-error>
+                <mat-error *ngIf="mesParametresFormGroup.get('prenom').errors && mesParametresFormGroup.get('prenom').hasError('minlength')">Minimum 3 lettres</mat-error>
+          
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Nom</mat-label>
+                <input matInput formControlName="nom" placeholder="nom" required>
+                <mat-error *ngIf="mesParametresFormGroup.get('nom').errors && mesParametresFormGroup.get('nom').hasError('required')">Prénom recquis</mat-error>
+                <mat-error *ngIf="mesParametresFormGroup.get('nom').errors && mesParametresFormGroup.get('nom').hasError('minlength')">Minimum 3 lettres</mat-error>
+          
+              </mat-form-field>
+             
+               <mat-form-field appearance="outline">
+                <mat-label>Adresse</mat-label>
+                <input matInput formControlName="adresse" placeholder="Adresse" >
+              </mat-form-field>
+            
+               <mat-form-field appearance="outline">
+                <mat-label>Code Postale</mat-label>
+                <input matInput formControlName="cp" placeholder="Code Postale" >
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Ville</mat-label>
+                <input matInput formControlName="ville" placeholder="Ville" >
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Pays</mat-label>
+                <input matInput formControlName="pays" placeholder="pays" >
+              </mat-form-field>
+           
+              <mat-form-field appearance="outline">
+                <mat-label>Date de Naissance</mat-label>
+                <input matInput formControlName="dateDeNaissance" placeholder="Date de Naissance" type="date" >
+                <mat-error *ngIf="mesParametresFormGroup.get('dateDeNaissance').errors && mesParametresFormGroup.get('dateDeNaissance').hasError('avantaujourdhui')">Date de naissance doit être au passé</mat-error>
+              
+            </mat-form-field>
+            
+              <mat-form-field appearance="outline">
+                <mat-label>Tél</mat-label>
+                <input matInput formControlName="tel" placeholder="Tél" >
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Mobile</mat-label>
+                <input matInput formControlName="mobile" placeholder="Mobile" type="tel" >
+              </mat-form-field>
+        
+    </mat-card-content>
+    <mat-card-actions>
+        
+      <button type="submit" [disabled]="mesParametresFormGroup.invalid" mat-button>Save</button>
+    </mat-card-actions>
+    </form>
+  </mat-card>
+
+  <ng-template  #saved>
+
+    <mat-card>
+
+        <mat-card-title>Merci !</mat-card-title>
+        <mat-card-content class="response-card-content">
+            Paramètres sauvegardés    
+        </mat-card-content>
+        <mat-card-actions>
+            <button type="button" routerLink="/cv/mescv/{{id}}" mat-button>Voir mes cvs</button>
+          </mat-card-actions>
+    </mat-card>
+  </ng-template>

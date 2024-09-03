@@ -1,0 +1,144 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~@angular/material/theming';
+@import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200&family=Nuosu+SIL&family=Open+Sans&family=Roboto+Condensed:wght@300&family=Roboto:wght@100&family=Rubik:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Kalam&family=Niconne&display=swap');//@include mat-core();
+$custom-typography: mat-typography-config(
+  $font-family: 'Kalam'
+);
+@include mat-core($custom-typography);
+/* For use in src/lib/core/theming/_palette.scss */
+$md-mcgpalette0: (
+    50 : #e1e8f5,
+    100 : #b5c6e6,
+    200 : #83a0d6,
+    300 : #517ac6,
+    400 : #2c5eb9,
+    500 : #0741ad,
+    600 : #063ba6,
+    700 : #05329c,
+    800 : #042a93,
+    900 : #021c83,
+    A100 : #b0bbff,
+    A200 : #7d8fff,
+    A400 : #4a63ff,
+    A700 : #304dff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+@function modify-background($theme, $background-color) {
+    // Replace the background in the color object's background palette.
+    $theme-color: map-get($theme, color);
+    $color-background-palette: map-get($theme-color, background);
+    $color-background-palette: map-merge($color-background-palette, (background: $background-color));
+    $color-background-palette: map-merge($color-background-palette, (raised-button: $background-color));
+  
+    // Replace the background in the background palette.
+    $background-palette: map-get($theme, background);
+    $background-palette: map-merge($background-palette, (background: $background-color));
+    $background-palette: map-merge($background-palette, (raised-button: $background-color));
+  
+    // Merge the changes into a new theme.
+    $modified-theme-color: map-merge($theme-color, (background: $color-background-palette));
+    $modified-theme: map-merge($theme, (color: $modified-theme-color));
+    $modified-theme: map-merge($modified-theme, (background: $background-palette));
+  
+    @return $modified-theme;
+  }
+  $mat-light-theme-background: (
+    status-bar: yellow,
+    app-bar:    yellow,
+    background: yellow, //To override this property
+    hover:      rgba(black, 0.04), // TODO(kara): check style with Material Design UX
+    card:       yellow,
+    dialog:     white,
+    disabled-button: $black-12-opacity,
+    raised-button: white,
+    focused-button: $black-6-opacity,
+    selected-button: map_get($mat-grey, 300),
+    selected-disabled-button: map_get($mat-grey, 400),
+    disabled-button-toggle: map_get($mat-grey, 200),
+    unselected-chip: map_get($mat-grey, 300),
+    disabled-list-option: map_get($mat-grey, 200),
+  );
+$my-app-primary: mat-palette($md-mcgpalette0);
+$my-app-accent: mat-palette($md-mcgpalette0, A200, A100, A400);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent);
+$background-color: mat-palette($md-mcgpalette0, 50,100,200);
+//$theme-color: map-get($my-app-theme, $background-color);
+
+// // The warn palette is optional (defaults to red).
+// //$warn: mat-palette($mat-blue);
+
+// // Create the theme object (a Sass map containing all of the palettes).
+// //$theme: mat-light-theme($primary, $accent, $warn);
+
+// // Insert custom background color
+// $background: map-get($my-app-theme, background);
+//  $background: map_merge($background, (background: $background-color));
+//  $my-app-theme: map_merge($my-app-theme, (background: $background));
+//$my-theme: modify-background($my-app-theme,'#ccc');
+@include angular-material-theme($my-app-theme);
+.theme-light{
+    @include angular-material-theme($my-app-theme);
+}
+@import '~ngx-toastr/toastr.css';
+html, body { height: 100%;margin: 0; font-family: 'Kalam', cursive !important; }
+
+.green-progress .mat-progress-bar-fill::after {
+    background-color: var(--bg-color,#0741ad) !important;
+}
+.green-progress .mat-progress-bar-buffer {
+    background-color: #ccc !important;
+}
+.side-droit .green-progress .mat-progress-bar-fill::after {
+    background-color: #000 !important;
+}
+.side-droit .green-progress .mat-progress-bar-buffer {
+    background-color: #fff !important;
+}
+ .mat-progress-bar{
+    height:5px;
+    border-radius: 2px;
+}
+
+.mat-button-toggle-group{
+    display: flex !important;
+    gap: 20px !important;
+    border: none !important;
+}
+.mat-button-toggle-label-content{
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.mat-button-toggle{
+    border: 1px solid #ccc;
+}
+
+//#0741AD
+
+.bubble button{
+    font-size: 1.4rem;
+}
+
+
+.mat-horizontal-stepper-header-container{
+    width:92%;
+    margin: 0 auto;
+  }

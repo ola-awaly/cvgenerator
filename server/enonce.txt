@@ -1,0 +1,5 @@
+Créer un générateur de CV. Un user, après enregistrement sur le site, 
+a le moyen de générer un CV en remplissant les infos correspondantes et selectionnant un template. 
+Le CV est enregistré et il a la possibilité de revenir plus tard pour le modifier changer le template, modifier des configs, ajouter supprimer des infos. 
+Ou créer un autre CV en  copiant celui-ci.
+ Ce site sera util et gratuit pour tous ceux qui (comme moi) n'avaient pas envie de créer eux même leur CV de A à Z.

@@ -1,0 +1,41 @@
+
+<mat-card class="register" *ngIf="!isSaved;else saved">
+    <mat-card-title>Modifier mon mot de passe</mat-card-title>
+    <form action="" [formGroup]="mdpFormGroup" (ngSubmit)="save()" *ngIf="mdpFormGroup">
+      
+    <mat-card-content class="registration-card-content">
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" required>
+            <mat-error *ngIf="mdpFormGroup.get('password').errors && mdpFormGroup.get('password').hasError('required')">Password recquis</mat-error>
+            <mat-error *ngIf="mdpFormGroup.get('password').errors && mdpFormGroup.get('password').hasError('minlength')">Minimum 8 lettres</mat-error>
+            <mat-error *ngIf="mdpFormGroup.get('password').errors && mdpFormGroup.get('password').hasError('pattern')">Doit contenir une lettre majuscule, une lettre miniscule et un chiffre</mat-error>
+       
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput type="password" formControlName="confirmPassword" required>
+            <mat-error *ngIf="mdpFormGroup.get('confirmPassword').errors && mdpFormGroup.get('confirmPassword').hasError('isNotEqualToPassword')">Doit être le même que password</mat-error>
+            
+        </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+        
+      <button type="submit" [disabled]="mdpFormGroup.invalid" mat-button>Save</button>
+    </mat-card-actions>
+    </form>
+  </mat-card>
+
+  <ng-template  #saved>
+
+    <mat-card>
+
+        <mat-card-title>Merci !</mat-card-title>
+        <mat-card-content class="response-card-content">
+            Mot de passe sauvegardé    
+        </mat-card-content>
+        <mat-card-actions>
+            <button type="button" routerLink="/cv/mescv/{{id}}" mat-button>Voir mes cvs</button>
+          </mat-card-actions>
+    </mat-card>
+  </ng-template>

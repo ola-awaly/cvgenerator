@@ -1,0 +1,73 @@
+<form [formGroup]="profileFormGroup" (ngSubmit)="submitProfil()" *ngIf="profileFormGroup">
+    <ng-template matStepLabel>Profil</ng-template>
+    <div class="form-content">
+      <mat-form-field appearance="outline">
+        <mat-label>Intitulé de poste</mat-label>
+        <input matInput formControlName="intituleDePoste" placeholder="Intitulé de Poste" required>
+        <mat-error *ngIf="profileFormGroup.get('intituleDePoste').errors && profileFormGroup.get('intituleDePoste').hasError('required')">Intitulé de poste recquis</mat-error>
+        <mat-error *ngIf="profileFormGroup.get('intituleDePoste').errors && profileFormGroup.get('intituleDePoste').hasError('minlength')">Minimum 3 lettres</mat-error>
+  
+      </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Nom</mat-label>
+      <input matInput formControlName="nom" placeholder="Nom" required>
+      <mat-error *ngIf="profileFormGroup.get('nom').errors && profileFormGroup.get('nom').hasError('required')">Nom recquis</mat-error>
+      <mat-error *ngIf="profileFormGroup.get('nom').errors && profileFormGroup.get('nom').hasError('minlength')">Minimum 3 lettres</mat-error>
+    </mat-form-field>
+   <mat-form-field appearance="outline">
+        <mat-label>Prénom</mat-label>
+        <input matInput formControlName="prenom" placeholder="Prenom" required>
+        <mat-error *ngIf="profileFormGroup.get('prenom').errors && profileFormGroup.get('prenom').hasError('required')">Prénom recquis</mat-error>
+        <mat-error *ngIf="profileFormGroup.get('prenom').errors && profileFormGroup.get('prenom').hasError('minlength')">Minimum 3 lettres</mat-error>
+      </mat-form-field>
+     
+       <mat-form-field appearance="outline">
+        <mat-label>Adresse</mat-label>
+        <input matInput formControlName="adresse" placeholder="Adresse" >
+      </mat-form-field>
+       <mat-form-field appearance="outline">
+        <mat-label>Code Postale</mat-label>
+        <input matInput formControlName="cp" placeholder="Code Postale" >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Ville</mat-label>
+        <input matInput formControlName="ville" placeholder="Ville" >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Tél</mat-label>
+        <input matInput formControlName="tel" placeholder="Tél" >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Mobile</mat-label>
+        <input matInput formControlName="mobile" placeholder="Mobile" type="tel" >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" placeholder="Email" >
+        <mat-error *ngIf="profileFormGroup.get('email').errors && profileFormGroup.get('email').hasError('required')">Email recquis</mat-error>
+        <mat-error *ngIf="profileFormGroup.get('email').errors && profileFormGroup.get('email').hasError('email')">Email pas valid</mat-error>
+      
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Date de Naissance</mat-label>
+        <input matInput formControlName="dateDeNaissance" placeholder="Date de Naissance" type="date" >
+        <mat-error *ngIf="profileFormGroup.get('dateDeNaissance').errors && profileFormGroup.get('dateDeNaissance').hasError('avantaujourdhui')">Date de naissance doit être au passé</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Nationalité</mat-label>
+        <input matInput formControlName="nationalite" placeholder="Nationalité" >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Permis de conduire</mat-label>
+        <input matInput formControlName="permisDeConduire" placeholder="Permis de conduire" >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Situation Familiale</mat-label>
+        <input matInput formControlName="situationFamiliale" placeholder="Situation Familiale" >
+      </mat-form-field>
+    </div>
+    <div class="actions">
+        <button mat-button matStepperPrevious>Back</button>
+      <button mat-button [disabled]="profileFormGroup.invalid" matStepperNext color="primary" >Enregistrez et continuez</button>
+    </div>
+  </form>

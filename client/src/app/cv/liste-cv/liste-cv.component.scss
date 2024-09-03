@@ -1,0 +1,49 @@
+.spacer {
+    flex: 1 1 auto;
+  }
+  .noitems{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  
+
+@media only screen and (min-width: 900px) {
+  
+    .hide-md{
+      display: none;
+    }
+    .mes-cv{
+        margin: 100px auto;
+        width: 50em;
+    }
+}
+    
+    
+    @media only screen and (max-width: 900px) {
+    
+        .hide-xs{
+        display: none;
+        }
+        .mes-cv{
+            margin: 100px auto;
+            width: 80%;
+        }
+    }
+
+
+    mat-list-item{
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+    .finalise{
+        border: 1px solid green;
+        border-radius: 8px;
+    }
+
+    mat-list{
+        display: flex;
+        flex-direction: column;
+        gap:5px;
+    }

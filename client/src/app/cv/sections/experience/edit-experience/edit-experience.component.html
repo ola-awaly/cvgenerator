@@ -1,0 +1,138 @@
+<ng-container *ngIf="parcoursFormGroup;else noform">
+<form [formGroup]="parcoursFormGroup"  (ngSubmit)="submitParcours()">
+       <h2>Parlez-nous de votre expérience professionnelle</h2>
+       <p> Indiquez vos postes par ordre chronologique, en commençant par le plus récent.</p>
+       <mat-accordion class="example-headers-align" multi="false">
+           <div cdkDropList  (cdkDropListDropped)="drop($event)">
+            
+            <ng-container *ngFor="let exp of parcoursFormGroup.controls.experiences.controls; let i=index;" formArrayName="experiences">
+            
+            <mat-expansion-panel [id]="i" [ngClass]="{'fieldset':true,'invalid':getExperiences().at(i).touched && getExperiences().at(i).invalid}" [expanded]="getExperiences().at(i).invalid" cdkDrag>
+                <mat-expansion-panel-header >
+                <mat-panel-title>
+                    <span matBadge="{{i+1}}" matBadgeSize="medium" class="numBadge"></span>
+                    Expérience {{i+1}}: {{getExperiences().at(i).get('intituleDePoste').value}} - {{getExperiences().at(i).get('employeur').value}}
+                  
+                </mat-panel-title>
+                <mat-panel-description>
+                    <button mat-button (click)="deleteExperience(i)" class="delete"><mat-icon>delete</mat-icon></button>
+                
+                    <div class="handleDrag" cdkDragHandle>
+                        <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+                          <path d="M0 0h24v24H0z" fill="none"></path>
+                        </svg>
+                      </div>
+                </mat-panel-description>
+                </mat-expansion-panel-header>    
+        <!-- <fieldset    [ngClass]="{'fieldset':true,'invalid':getExperiences().at(i).touched && getExperiences().at(i).invalid}">
+            <legend>Experiences:</legend> -->
+           
+        
+            <div [formGroupName]="i" class="fieldsetContent" >
+
+                <mat-form-field class="unquart" appearance="outline">
+                    <mat-label>Intitulé de Poste</mat-label>
+                    <input type="text" matInput formControlName="intituleDePoste" placeholder="Intitulé du Poste">
+                    <mat-error *ngIf="getExperiences().at(i).get('intituleDePoste').errors && getExperiences().at(i).get('intituleDePoste').hasError('required')">Intitulé de poste recquis</mat-error>
+                    <mat-error *ngIf="getExperiences().at(i).get('intituleDePoste').errors && getExperiences().at(i).get('intituleDePoste').hasError('minlength')">Minimum 3 lettres</mat-error>
+                    
+                </mat-form-field>
+                <mat-form-field class="unquart" appearance="outline" >
+                    <mat-label>Employeur</mat-label>
+                    <input type="text" matInput formControlName="employeur" 
+                        placeholder="Employeur">
+                        <mat-error>error</mat-error>
+                </mat-form-field>
+                <mat-form-field class="unquart" appearance="outline" >
+                    <mat-label>Ville</mat-label>
+                    <input type="text" matInput formControlName="ville" 
+                        placeholder="Ville">
+                        <mat-error>error</mat-error>
+                </mat-form-field>
+                <mat-form-field class="unquart" appearance="outline" >
+                    <mat-label>Type de Contrat</mat-label>
+                    <input type="text" matInput formControlName="typeDeContrat" 
+                        placeholder="Type de Contrat">
+                </mat-form-field>
+                <mat-form-field class="description" appearance="outline" >
+                    <mat-label>Description</mat-label>
+                    <textarea  matInput formControlName="description"></textarea>
+                </mat-form-field>
+                <fieldset class="dateFieldSet">
+                    <legend>Date de Début:</legend>
+                    <mat-form-field class="dateField" appearance="outline" >
+                        <mat-label> Mois</mat-label>
+                        <mat-select formControlName="dateDeDebutMois">
+                            <ng-container *ngFor="let ms of mois">
+                            <mat-option value="{{ms.value}}">{{ms.literal}}</mat-option>
+                        </ng-container>
+                            </mat-select>
+                    
+                        
+                    </mat-form-field>
+                    <mat-form-field class="dateField" appearance="outline" >
+                        <mat-label>Année</mat-label>
+                        <mat-select formControlName="dateDeDebutAnnee">
+                            <ng-container *ngFor="let a of annee">
+                            <mat-option value="{{a}}">{{a}}</mat-option>
+                        </ng-container>
+                        
+                    </mat-select>      
+                    </mat-form-field>
+                </fieldset>
+                <fieldset class="dateFieldSet">
+                    <legend>Date de Fin:</legend>
+                    
+                    <mat-form-field class="dateField" appearance="outline" >
+                        <mat-label> Mois</mat-label>
+                        <mat-select formControlName="dateDeFinMois" >
+                        <ng-container *ngFor="let ms of mois">
+                            <mat-option value="{{ms.value}}">{{ms.literal}}</mat-option>
+                        </ng-container>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="dateField" appearance="outline" >
+                        <mat-label>Année</mat-label>
+
+                        <mat-select formControlName="dateDeFinAnnee" >
+                            <ng-container *ngFor="let a of annee">
+                                <mat-option value="{{a}}">{{a}}</mat-option>
+                            </ng-container>
+                        </mat-select>       
+                    </mat-form-field>
+                    
+                    <mat-error *ngIf="getExperiences().at(i).get('dateDeFinAnnee').errors && getExperiences().at(i).get('dateDeFinAnnee').hasError('debutPasInferieurFin')">Date de fin doit être inférieur à la date de début !</mat-error>
+                    <mat-checkbox class="example-margin" formControlName="enCours" class="encours" (click)="disableValidator(i)">En cours</mat-checkbox>
+                  
+                </fieldset>
+               
+                    
+                
+            </div>
+        
+        <!-- </fieldset> -->
+            </mat-expansion-panel>
+        
+            </ng-container>
+            
+        </div>
+        </mat-accordion>
+
+        <button mat-button (click)="addExperience()" class="add" type="button" [disabled]="parcoursFormGroup.invalid"><mat-icon>add</mat-icon> Ajouter Une Expérience</button>
+       
+        <div class="actions">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button  [disabled]="parcoursFormGroup.invalid" color="primary">Enregistrez et continuez</button>
+        </div>
+ </form>
+</ng-container>
+
+<ng-template #noform>
+    <button mat-button (click)="addExperience()" class="add" type="button"><mat-icon>add</mat-icon>  Ajouter Une Expérience</button>
+   
+    <div class="actions">
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button  matStepperNext (click)="passer()" color="primary" >Passez cette étape et continuez</button>
+    </div>
+</ng-template>

@@ -1,0 +1,34 @@
+.login{
+    margin: 100px auto;
+    width: 25rem;
+}
+form{
+    margin:10px;
+    padding:10px 0;
+}
+mat-form-field{
+    width:100%;
+    margin-top:5px
+}
+mat-card-actions{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
+
+a{
+    text-decoration: none;
+}
+
+.login-button{
+    width: 18rem;
+}
+
+.link-button{
+    margin:0;
+    padding:0;
+    line-height: normal;
+}

@@ -1,0 +1,66 @@
+<form [formGroup]="lienFormGroup"  (ngSubmit)="submitLiens()">
+    <h1 mat-dialog-title>Modifier vos Langues</h1>
+    <div mat-dialog-content>
+       
+            <h2>Sites Web, Books, Profils</h2>
+            <p> Ajoutez le lien vers votre site Internet, votre portfolio ou vos réseaux sociaux professionnels.</p>
+            <mat-accordion  multi="false">
+             <div cdkDropList  (cdkDropListDropped)="drop($event)">
+           
+            <ng-container *ngFor="let lien of lienFormGroup.controls['liens']['controls']; let i=index;" formArrayName="liens">
+               
+             <mat-expansion-panel  [ngClass]="{'fieldset':true,'invalid':getLiens().at(i).touched && getLiens().at(i).invalid}" [expanded]="true" cdkDrag>
+                 <mat-expansion-panel-header >
+                   <mat-panel-title>
+                     <span matBadge="{{i+1}}" matBadgeSize="medium" class="numBadge"></span>
+                    
+                         {{getLiens().at(i).get('lien').value}} 
+                   </mat-panel-title>
+                   <mat-panel-description>
+                     <button mat-button (click)="deleteLien(i)" class="delete"><mat-icon>delete</mat-icon></button>
+                     <div class="handleDrag" cdkDragHandle>
+                         <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+                           <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+                           <path d="M0 0h24v24H0z" fill="none"></path>
+                         </svg>
+                       </div>
+                   </mat-panel-description>
+                 </mat-expansion-panel-header>    
+            <!-- <fieldset    [ngClass]="{'fieldset':true,'invalid':getFormations().at(i).touched && getFormations().at(i).invalid}">
+             <legend>Experiences:</legend> -->
+             <div [formGroupName]="i" class="fieldsetContent">
+     
+                 <mat-form-field class="unquart" appearance="outline" >
+                     <mat-label>Lien</mat-label>
+                     <input type="url" matInput formControlName="lien" 
+                            placeholder="lien">
+                      <mat-error *ngIf="getLiens().at(i).get('lien').errors && getLiens().at(i).get('lien').hasError('required')">Lien recquis!</mat-error>
+                      <mat-error *ngIf="getLiens().at(i).get('lien').errors && getLiens().at(i).get('lien').hasError('pattern')">Lien non valide!</mat-error>
+                  
+                  </mat-form-field>
+                  <mat-form-field class="unquart" appearance="outline" >
+                     <mat-label>Commentaire</mat-label>
+                     <input type="text" matInput formControlName="commentaire" 
+                            placeholder="Commentaire">
+                      <mat-error *ngIf="getLiens().at(i).get('commentaire').errors && getLiens().at(i).get('commentaire').hasError('required')">Commentaire recquis!</mat-error>
+                
+                  </mat-form-field>
+                 
+             </div>
+           
+         
+             </mat-expansion-panel>
+         
+           </ng-container>
+             </div>
+           </mat-accordion>
+           <button mat-button (click)="addLien()" class="add" type="button" [disabled]="lienFormGroup.invalid"><mat-icon>add</mat-icon> Ajouter Un Autre Lien</button>
+             
+             
+           
+    </div>
+    <div class="actions" mat-dialog-actions>
+        <button mat-button  (click)="cancel()" type="button">Cancel</button>
+        <button mat-button [disabled]="lienFormGroup.invalid"  >Ok</button>
+    </div>
+    </form>

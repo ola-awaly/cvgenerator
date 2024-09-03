@@ -1,0 +1,79 @@
+<form [formGroup]="langueFormGroup"  (ngSubmit)="submitLangues()">
+    <h1 mat-dialog-title>Modifier vos Langues</h1>
+    <div mat-dialog-content>
+            <p> Ajoutez les langues pertinentes pour le poste auquel vous postulez.</p>
+            <mat-accordion  multi="false">
+             <div cdkDropList  (cdkDropListDropped)="drop($event)">
+            <ng-container *ngFor="let langue of langueFormGroup.controls['langues']['controls']; let i=index;" formArrayName="langues">
+               
+             <mat-expansion-panel  [ngClass]="{'fieldset':true,'invalid':getLangues().at(i).touched && getLangues().at(i).invalid}" [expanded]="true" cdkDrag>
+                 <mat-expansion-panel-header >
+                   <mat-panel-title>
+                      <span matBadge="{{i+1}}" matBadgeSize="medium" class="numBadge"></span>
+                      <span class="libele">{{getLangues().at(i).get('langue').value}}</span>
+                      
+                     <ng-container *ngIf="getLangues().at(i).get('niveau').value">
+                       
+                       <mat-progress-bar mode="determinate" [value]="getLangues().at(i).get('niveau').value | niveau" class="green-progress" ></mat-progress-bar>
+                
+ 
+                     </ng-container> 
+                       </mat-panel-title>
+                   <mat-panel-description>
+                     <button mat-button (click)="deleteLangue(i)" class="delete"><mat-icon>delete</mat-icon></button>
+                     <div class="handleDrag" cdkDragHandle>
+                         <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+                           <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+                           <path d="M0 0h24v24H0z" fill="none"></path>
+                         </svg>
+                       </div>
+                   </mat-panel-description>
+                 </mat-expansion-panel-header>    
+            <!-- <fieldset    [ngClass]="{'fieldset':true,'invalid':getFormations().at(i).touched && getFormations().at(i).invalid}">
+             <legend>Experiences:</legend> -->
+             <div [formGroupName]="i" class="fieldsetContent">
+    
+              <mat-form-field class="libele-width" appearance="outline" >
+                  <mat-label>Langue</mat-label>
+                  <input type="text" matInput formControlName="langue" 
+                         placeholder="langue">
+                  <mat-error *ngIf="getLangues().at(i).get('langue').errors && getLangues().at(i).get('langue').hasError('required')">Langue recquise!</mat-error>
+               
+               </mat-form-field>
+               <mat-form-field class="niveau-width" appearance="outline" >
+                  <mat-label>Niveau</mat-label>
+                  <mat-select formControlName="niveau">
+                      <ng-container *ngFor="let ln of NiveauLangue">
+                      <mat-option [value]="ln.literal">{{ln.literal}}</mat-option>
+                  </ng-container>
+                      </mat-select>
+                  <!-- <input type="text" matInput formControlName="niveau" 
+                         placeholder="Diplome"> -->
+               </mat-form-field>
+               <mat-form-field class="info-width" appearance="outline" >
+                  <mat-label>Informations Supplémentaires</mat-label>
+                  <input type="text" matInput formControlName="infoSup" 
+                         placeholder="plus d'info">
+               </mat-form-field>
+              
+            
+                  
+              
+          </div>
+           
+         <!-- </fieldset> -->
+             </mat-expansion-panel>
+         
+           </ng-container>
+             </div>
+           </mat-accordion>
+           <button mat-button (click)="addLangue()" class="add" type="button" [disabled]="langueFormGroup.invalid"><mat-icon>add</mat-icon>  Ajouter Une Autre Langue</button>
+             
+               
+       
+    </div>
+    <div class="actions" mat-dialog-actions>
+        <button mat-button  (click)="cancel()" type="button">Cancel</button>
+        <button mat-button [disabled]="langueFormGroup.invalid"  >Ok</button>
+    </div>
+    </form>

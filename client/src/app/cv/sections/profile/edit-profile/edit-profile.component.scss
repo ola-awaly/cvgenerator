@@ -1,0 +1,22 @@
+
+  .form-content{
+    display: flex;
+    gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+mat-form-field{
+    width: 15rem
+}
+
+
+.actions, .add{
+    clear:both;
+    float: right;
+}
+
+form{
+  width: 70%;
+  margin: 0 auto;
+}
