@@ -1,23 +1,20 @@
+<ng-container *ngIf="templateFormGroup">
+	<form [formGroup]="templateFormGroup" (ngSubmit)="submitTemplate()">
+		<h2>Choisissez un modèle pour votre CV</h2>
+		<mat-button-toggle-group formcontrolname="TemplateId" *ngIf="templateList">
+			<ng-container *ngFor="let template of templateList.rows">
+				<mat-button-toggle [value]="template.id" aria-label="Text align left">
 
-  
-  <ng-container *ngIf="templateFormGroup" >
-    <form [formGroup]="templateFormGroup"  (ngSubmit)="submitTemplate()" >
-           <h2>Choisissez un modèle pour votre CV</h2>
-           <mat-button-toggle-group formControlName="TemplateId" *ngIf="templateList">
-            <ng-container *ngFor="let template of templateList.rows">
-            <mat-button-toggle [value]="template.id" aria-label="Text align left">
-              
-              {{template.intitule}}
-              <img src="http://localhost:8080{{template.image}}" alt=""  class="img">
-            </mat-button-toggle>
-            <mat-error *ngIf="templateFormGroup.get('TemplateId').invalid">You need to select a valid model</mat-error>
-           </ng-container>
-          </mat-button-toggle-group>
-             
-        <div class="actions">
-          
-          <button mat-button color="primary" matStepperNext [disabled]="templateFormGroup.invalid">Enregistrez et continuez</button>
-        </div>
-      </form>
-    </ng-container>
-    
+					{{template.intitule}}
+					<img src="http://localhost/api{{template.image}}" alt="" class="img">
+				</mat-button-toggle>
+				<mat-error *ngIf="templateFormGroup.get('TemplateId').invalid">You need to select a valid model</mat-error>
+			</ng-container>
+		</mat-button-toggle-group>
+
+		<div class="actions">
+
+			<button mat-button color="primary" matsteppernext [disabled]="templateFormGroup.invalid">Enregistrez et continuez</button>
+		</div>
+	</form>
+</ng-container>

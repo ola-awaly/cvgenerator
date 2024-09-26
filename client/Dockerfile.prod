@@ -1,0 +1,12 @@
+FROM node:alpine as build
+WORKDIR /client
+COPY package.json .
+RUN npm install --legacy-peer-deps
+COPY . .
+RUN  npm run build --prod
+
+FROM nginx
+COPY --from=build /client/dist/cv-generator /usr/share/nginx/html
+EXPOSE 80
+
+

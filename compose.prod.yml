@@ -1,0 +1,54 @@
+services:
+   db:
+      image: mysql:8.0.39
+      environment:
+         MYSQL_ROOT_PASSWORD: root
+         MYSQL_DATABASE: cvgenerator
+      volumes:
+         - db_data:/var/lib/mysql
+         - ./server/cvgenerator.sql:/docker-entrypoint-initdb.d/cvgenerator.sql
+      ports:
+         - '3307:3306'
+
+   server:
+      build:
+         context: ./server
+         dockerfile: Dockerfile.prod
+      ports:
+         - '8081:8080'
+      env_file:
+         - './server/.env'
+      volumes:
+         - type: bind
+           source: ./server
+           target: /server
+         - type: volume
+           target: /server/node_modules
+      depends_on:
+         - db
+      restart: unless-stopped
+   client:
+      build:
+         context: ./client
+         dockerfile: Dockerfile.prod
+
+      volumes:
+         - ./client:/client:rw
+         - type: volume
+           target: /client/node_modules
+      depends_on:
+         - db
+         - server
+   reverse-proxy:
+      build:
+         context: ./reverse-proxy
+         dockerfile: Dockerfile.prod
+      depends_on:
+         - db
+         - server
+         - client
+      ports:
+         - '80:80'
+
+volumes:
+   db_data:
