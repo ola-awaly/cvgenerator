@@ -1,0 +1,82 @@
+name: CI/CD mastermind workflow
+on:
+   push:
+      branches:
+         - main
+env:
+   SERVER_IP: 15.235.198.17
+   SERVER_USER: ubuntu
+
+jobs:
+   build:
+      runs-on: ubuntu-latest
+      permissions:
+         packages: write
+      strategy:
+         matrix:
+            include:
+               - path: 'client'
+                 full-image-name: ghcr.io/${{ github.repository }}/cvgeneratorclient
+               - path: 'server'
+                 full-image-name: ghcr.io/${{ github.repository }}/cvgeneratorserver
+
+      steps:
+         - name: checkout code
+           uses: actions/checkout@v4
+
+         - name: mis en place de buildx
+           uses: docker/setup-buildx-action@v3
+
+         - name: login sur github packages Registry
+           uses: docker/login-action@v3
+           with:
+              registry: ghcr.io
+              username: ${{github.actor}}
+              password: ${{ secrets.GITHUB_TOKEN }}
+
+         - name: récupérationdes metadonnées
+           id: metadata
+           uses: docker/metadata-action@v5
+           with:
+              images: ${{ matrix.full-image-name }}
+
+         - name: build et push
+           uses: docker/build-push-action@v5
+           with:
+              push: true
+              tags: ${{ matrix.full-image-name }}:latest
+              context: ./${{matrix.path}}
+              file: ./${{matrix.path}}/Dockerfile.prod
+              cache-from: type=gha
+              cache-to: type=gha,mode=max
+   deploy:
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+         - name: checkout le code
+           uses: actions/checkout@v4
+
+         - name: déployer sur le vps
+           run: |
+              eval $(ssh-agent -s)
+              ssh-add - <<< "${{ secrets.OVH_PROD_PKEY}}"
+              mkdir -p  ~/.ssh
+              ssh-keyscan -H ${{ env.SERVER_IP }} >> ~/.ssh/known_hosts
+              scp compose.prod2.yml ${{ env.SERVER_USER }}@${{ env.SERVER_IP }}:/home/${{ env.SERVER_USER }}/compose.prod2.yml
+              ssh ${{ env.SERVER_USER }}@${{ env.SERVER_IP }} "
+              export HOST_DB=${{ secrets.HOST_DB }} 
+              export CUR_HOST=${{ secrets.CUR_HOST }}
+              export MAIL_USERNAME=${{ secrets.MAIL_USERNAME }}
+              export MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}
+              export MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
+              export NAME_DB=${{ secrets.NAME_DB }} 
+              export OAUTH_CLIENTID=${{ secrets.OAUTH_CLIENTID }} 
+              export OAUTH_CLIENT_SECRET=${{ secrets.OAUTH_CLIENT_SECRET }} 
+              export OAUTH_REFRESH_TOKEN=${{ secrets.OAUTH_REFRESH_TOKEN }} 
+              export PASSWORD_DB=${{ secrets.PASSWORD_DB }} 
+              export PORT_DB=${{ secrets.PORT_DB }} 
+              export USER_DB=${{ secrets.USER_DB }} 
+
+              docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} &&
+
+              docker compose -f /home/${{ env.SERVER_USER }}/compose.prod2.yml up -d --force-recreate"

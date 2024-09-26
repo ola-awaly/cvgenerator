@@ -9,7 +9,8 @@ services:
          - ./server/cvgenerator.sql:/docker-entrypoint-initdb.d/cvgenerator.sql
       ports:
          - '3307:3306'
-
+      networks:
+         - proxy_cvgenerator
    server:
       build:
          context: ./server
@@ -27,6 +28,8 @@ services:
       depends_on:
          - db
       restart: unless-stopped
+      networks:
+         - proxy_cvgenerator
    client:
       build:
          context: ./client
@@ -39,16 +42,10 @@ services:
       depends_on:
          - db
          - server
-   reverse-proxy:
-      build:
-         context: ./reverse-proxy
-         dockerfile: Dockerfile.prod
-      depends_on:
-         - db
-         - server
-         - client
-      ports:
-         - '80:80'
+      networks:
+         - proxy_cvgenerator
 
 volumes:
    db_data:
+networks:
+   proxy_cvgenerator:
