@@ -9,18 +9,18 @@ services:
    server:
       image: ghcr.io/ola-awaly/cvgenerator/cvgeneratorserver:latest
       environment:
-       - HOST_DB=${HOST_DB}
-       - USER_DB=${USER_DB}
-       - NAME_DB=${NAME_DB}
-       - PASSWORD_DB=${PASSWORD_DB}
-       - PORT_DB=${PORT_DB}
-       - CUR_HOST=${CUR_HOST}
-       - MAIL_USERNAME=${MAIL_USERNAME}
-       - OAUTH_CLIENTID=${OAUTH_CLIENTID}
-       - OAUTH_CLIENT_SECRET=${OAUTH_CLIENT_SECRET}
-       - OAUTH_REFRESH_TOKEN=${OAUTH_REFRESH_TOKEN}
-       - JWTPRIVATEKEY=${JWTPRIVATEKEY}
-       - JWTPUBLICKEY=${JWTPUBLICKEY}
+         - HOST_DB=${HOST_DB}
+         - USER_DB=${USER_DB}
+         - NAME_DB=${NAME_DB}
+         - PASSWORD_DB=${PASSWORD_DB}
+         - PORT_DB=${PORT_DB}
+         - CUR_HOST=${CUR_HOST}
+         - MAIL_USERNAME=${MAIL_USERNAME}
+         - OAUTH_CLIENTID=${OAUTH_CLIENTID}
+         - OAUTH_CLIENT_SECRET=${OAUTH_CLIENT_SECRET}
+         - OAUTH_REFRESH_TOKEN=${OAUTH_REFRESH_TOKEN}
+         - JWTPRIVATEKEY=${JWTPRIVATEKEY}
+         - JWTPUBLICKEY=${JWTPUBLICKEY}
       deploy:
          #  replicas: 3
          #  update_config:
@@ -32,8 +32,7 @@ services:
       restart: always
       networks:
          - proxy_cvgenerator
-  
-    db:
+   db:
       image: mysql:8.0.39
       environment:
          MYSQL_ROOT_PASSWORD: root
@@ -45,17 +44,17 @@ services:
          - '3307:3306'
       networks:
          - proxy_cvgenerator
-   # reverse-proxy:
-   #    image: ghcr.io/ola-awaly/mastermind/reverse-proxy:latest
-   #    ports:
-   #       - 80:80
-   #    restart: unless-stopped
-   #    depends_on:
-   #       - mastermindserver
-   #       - db
-   #       - mastermindclient
+      # reverse-proxy:
+      #    image: ghcr.io/ola-awaly/mastermind/reverse-proxy:latest
+      #    ports:
+      #       - 80:80
+      #    restart: unless-stopped
+      #    depends_on:
+      #       - mastermindserver
+      #       - db
+      #       - mastermindclient
 volumes:
-   mydb:
+   db_data:
 networks:
-   proxy_mastermind:
+   proxy_cvgenerator:
       external: true
