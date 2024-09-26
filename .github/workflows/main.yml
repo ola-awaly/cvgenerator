@@ -1,4 +1,4 @@
-name: CI/CD mastermind workflow
+name: CI/CD cvgenerator workflow
 on:
    push:
       branches:
@@ -62,7 +62,7 @@ jobs:
               ssh-add - <<< "${{ secrets.OVH_PROD_PKEY}}"
               mkdir -p  ~/.ssh
               ssh-keyscan -H ${{ env.SERVER_IP }} >> ~/.ssh/known_hosts
-              scp compose.prod.yml ${{ env.SERVER_USER }}@${{ env.SERVER_IP }}:/home/${{ env.SERVER_USER }}/compose.prod.yml
+              scp compose.prod2.yml ${{ env.SERVER_USER }}@${{ env.SERVER_IP }}:/home/${{ env.SERVER_USER }}/cvgenerator/compose.prod2.yml
               ssh ${{ env.SERVER_USER }}@${{ env.SERVER_IP }} "
               export HOST_DB=${{ secrets.HOST_DB }} 
               export CUR_HOST=${{ secrets.CUR_HOST }}
@@ -79,4 +79,4 @@ jobs:
 
               docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} &&
 
-              docker compose -f /home/${{ env.SERVER_USER }}/compose.prod.yml up -d --force-recreate"
+              docker compose -f /home/${{ env.SERVER_USER }}/cvgenerator/compose.prod2.yml up -d --force-recreate"
