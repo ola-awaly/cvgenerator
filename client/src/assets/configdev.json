@@ -1,6 +1,4 @@
 {
-    "apiBaseUrl": "/api",
-    "baseUrl": "http://localhost:4200"
-    "baseUrl":"http://vps-a9973597.vps.ovh.ca:81"
-  }
-  
+  "apiBaseUrl": "/api",
+  "baseUrl": "http://localhost:4200"
+}

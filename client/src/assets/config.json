@@ -1,5 +1,5 @@
 {
-  "apiBaseUrl": "/api",
+  "apiBaseUrl": "http://localhost:81/api"
 
-  "baseUrl": "http://vps-a9973597.vps.ovh.ca:81"
+  // "baseUrl": "http://vps-a9973597.vps.ovh.ca:81"
 }
