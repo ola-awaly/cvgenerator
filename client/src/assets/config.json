@@ -1,4 +1,4 @@
 {
-  "apiBaseUrl": "http://vps-a9973597.vps.ovh.ca/api",
-  "baseUrl": "http://vps-a9973597.vps.ovh.ca"
+  "apiBaseUrl": "/api",
+  "baseUrl": "/"
 }
