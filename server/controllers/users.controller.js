@@ -54,9 +54,10 @@ exports.delete = (req, res, next) => {
 
 exports.login = (req, res, next) => {
 	console.log('dans login controller');
-	const RSA_PRIVATE_KEY = fs.readFileSync(
-		path.resolve('config/jwt/private.pem')
-	);
+	const RSA_PRIVATE_KEY = process.env.JWTPRIVATEKEY;
+	// const RSA_PRIVATE_KEY = fs.readFileSync(
+	// 	path.resolve('config/jwt/private.pem')
+	// );
 	console.log(RSA_PRIVATE_KEY);
 	userRepository.login(req.body.email).then((data) => {
 		if (data.length) {

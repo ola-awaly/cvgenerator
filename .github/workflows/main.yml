@@ -76,7 +76,8 @@ jobs:
               export PASSWORD_DB=${{ secrets.PASSWORD_DB }} 
               export PORT_DB=${{ secrets.PORT_DB }} 
               export USER_DB=${{ secrets.USER_DB }} 
-
+              export JWTPRIVATEKEY=\$(echo \"${{ secrets.JWTPRIVATEKEYBASE64 }}\" | base64 -d)
+              export JWTPUBLICKEY=\$(echo \"${{ secrets.JWTPUBLICKEYBASE64 }}\" | base64 -d)
               docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} &&
 
               docker compose -f /home/${{ env.SERVER_USER }}/cvgenerator/compose.prod2.yml up -d --force-recreate"
