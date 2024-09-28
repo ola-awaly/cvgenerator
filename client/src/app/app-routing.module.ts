@@ -9,8 +9,15 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modeles/modeles.module').then((c) => c.ModelesModule),
   },
-  // {path:'cv',loadChildren:()=> import('./cv/cv.module').then(c => c.CvModule) },
-  // {path:'users',loadChildren:()=>import('./users/users.module').then(c => c.UsersModule)},
+  {
+    path: 'cv',
+    loadChildren: () => import('./cv/cv.module').then((c) => c.CvModule),
+  },
+  {
+    path: 'users',
+    loadChildren: () =>
+      import('./users/users.module').then((c) => c.UsersModule),
+  },
   { path: 'dashboard', component: DashboardComponent },
 ];
 
