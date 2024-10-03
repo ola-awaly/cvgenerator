@@ -1,4 +1,4 @@
 {
-  "apiBaseUrl": "http://server:8080/api",
+  "apiBaseUrl": "http://vps-a9973597.vps.ovh.ca:81/api",
   "baseUrl": "http://vps-a9973597.vps.ovh.ca:81/"
 }
