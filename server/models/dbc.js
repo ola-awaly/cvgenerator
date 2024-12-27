@@ -38,7 +38,7 @@ module.exports = {
 				Formation: formationModel(sequelize, DataTypes),
 			};
 			require('./relations');
-			console.log('dbconnector');
+			console.log('dbconnector test');
 			//console.log(dbConnector);
 		}
 	},
@@ -47,7 +47,7 @@ module.exports = {
 		if (!dbConnector) {
 			this.connect;
 
-			console.log('connect');
+			console.log('connected');
 		} else {
 			console.log('returndbconnector');
 			return dbConnector;
