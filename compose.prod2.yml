@@ -36,7 +36,7 @@ services:
       image: mysql:8.0.39
       environment:
          MYSQL_ROOT_PASSWORD: root
-         MYSQL_DATABASE: cvgenerator
+         MYSQL_DATABASE: cv_generator
       volumes:
          - db_data:/var/lib/mysql
          - ./server/cvgenerator.sql:/docker-entrypoint-initdb.d/cvgenerator.sql
