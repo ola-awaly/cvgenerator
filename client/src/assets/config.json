@@ -1,4 +1,4 @@
 {
-  "apiBaseUrl": "/api",
-  "baseUrl": "/"
+  "apiBaseUrl": "http://cvgenerator.olatech.ovh/api",
+  "baseUrl": "http://cvgenerator.olatech.ovh/"
 }
